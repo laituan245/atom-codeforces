@@ -1,0 +1,40 @@
+@import "octicon-mixins";
+@import "ui-variables";
+
+.codeforces {
+
+  overflow: auto;
+
+  .panel-heading {
+    color: rgba(241, 109, 60, 0.95);
+    font-size: 14px;
+  }
+  .list-item {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .panels-row {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+  }
+
+  .panel-body {
+    min-height: 250px;
+  }
+
+  .category-panel {
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    flex: 1;
+
+    .list-group {
+      overflow: hidden;
+    }
+
+    .inset-panel {
+      width: 100%;
+    }
+  }
+}
