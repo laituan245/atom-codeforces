@@ -1,0 +1,18 @@
+{
+  "name": "codeforces",
+  "main": "./lib/main",
+  "version": "1.0.0",
+  "description": "An Atom package for Codeforces people",
+  "activationCommands": {
+    "atom-workspace": ["codeforces:open"]
+  },
+  "repository": "https://github.com/laituan245/atom-codeforces",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.170.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.3",
+    "sub-atom": "1.0.x"
+  }
+}

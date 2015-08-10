@@ -1,0 +1,10 @@
+'menu': [
+  'label': 'Packages'
+  'submenu': [
+    'label': 'Codeforces'
+    'submenu': [
+      'label': 'Show'
+      'command': 'codeforces:open'
+    ]
+  ]
+]
