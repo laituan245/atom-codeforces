@@ -7,6 +7,7 @@ class codeforcesView extends View
 
   @content: ->
    @div class: 'codeforces', =>
+     @div class:"contest_notice", outlet: 'contest_notice', "There is currently no upcoming contest"
      @div class: 'panels-row', =>
        @subview 'ImplementationCategoryPanel', new CategoryPanelView('Implementation')
        @subview 'BruteForceCategoryPanel', new CategoryPanelView("Brute Force")
@@ -15,7 +16,7 @@ class codeforcesView extends View
      @div class: 'panels-row', =>
        @subview 'DpCategoryPanel', new CategoryPanelView('Dynamic Programming')
        @subview 'GraphCategoryPanel', new CategoryPanelView('Graph')
-       @subview 'MathandGeometryCategoryPanel', new CategoryPanelView('Math and Geometry')
+       @subview 'MathandGeometryCategoryPanel', new CategoryPanelView('Math and Geometry') 
 
   initialize: ({@uri}) ->
     @populateViews()
@@ -32,6 +33,9 @@ class codeforcesView extends View
     (error, response, body) ->
       if (!error && response.statusCode == 200)
         panel.addProblems(JSON.parse(body).result.problems)
+      else
+        request response.request.href, onProblemDataReceived(panel)
+
 
   showImplementationProblems: ->
     request 'http://codeforces.com/api/problemset.problems?tags=implementation', onProblemDataReceived(@ImplementationCategoryPanel)

@@ -1,2 +1,2 @@
 'atom-workspace atom-text-editor':
-  'ctrl-alt-o': 'codeforces:open'
+  'ctrl-alt-shift-o': 'codeforces:open'

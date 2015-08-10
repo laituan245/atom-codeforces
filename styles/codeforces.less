@@ -4,6 +4,27 @@
 .codeforces {
 
   overflow: auto;
+  padding-top: 15px;
+
+  .buttons {
+    margin-top: 20px;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+
+    #prev_btn {
+      float:left;
+    }
+
+    #next_btn {
+      float:right;
+    }
+  }
+
+  .contest_notice {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+  }
 
   .panel-heading {
     color: rgba(241, 109, 60, 0.95);
@@ -12,7 +33,18 @@
   .list-item {
     margin-top: 8px;
     margin-bottom: 8px;
-    font-size: 13px;
+    font-size: 12.5px;
+  }
+
+  .loading-text-span {
+    font-size:16px;
+  }
+
+  .inline-block {
+    &:hover {
+      color:rgb(65, 236, 190);
+      cursor: pointer; cursor: hand;
+    }
   }
 
   .panels-row {
