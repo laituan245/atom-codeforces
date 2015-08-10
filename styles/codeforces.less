@@ -1,15 +1,26 @@
 @import "octicon-mixins";
 @import "ui-variables";
 
+.disabled {
+  	visibility: hidden;
+}
+
 .codeforces {
 
   overflow: auto;
   padding-top: 15px;
 
-  .buttons {
-    margin-top: 20px;
+
+  .panel_bottom {
+    margin-top: 10px;
     color: rgb(0, 0, 0);
     font-size: 16px;
+    text-align: center;
+
+    #page_nb_span {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.86);
+    }
 
     #prev_btn {
       float:left;
@@ -31,8 +42,8 @@
     font-size: 14px;
   }
   .list-item {
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     font-size: 12.5px;
   }
 
@@ -53,7 +64,7 @@
   }
 
   .panel-body {
-    min-height: 250px;
+    min-height: 260px;
   }
 
   .category-panel {

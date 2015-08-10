@@ -16,7 +16,7 @@ class codeforcesView extends View
      @div class: 'panels-row', =>
        @subview 'DpCategoryPanel', new CategoryPanelView('Dynamic Programming')
        @subview 'GraphCategoryPanel', new CategoryPanelView('Graph')
-       @subview 'MathandGeometryCategoryPanel', new CategoryPanelView('Math and Geometry') 
+       @subview 'MathandGeometryCategoryPanel', new CategoryPanelView('Math and Geometry')
 
   initialize: ({@uri}) ->
     @populateViews()
@@ -29,10 +29,10 @@ class codeforcesView extends View
     @showGraphProblems()
     @showMathandGeometryProblems()
 
-  onProblemDataReceived = (panel) ->
+  onProblemDataReceived = (panel, category) ->
     (error, response, body) ->
       if (!error && response.statusCode == 200)
-        panel.addProblems(JSON.parse(body).result.problems)
+        panel.addProblems(JSON.parse(body).result.problems, category)
       else
         request response.request.href, onProblemDataReceived(panel)
 
