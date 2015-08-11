@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "An Atom package for Codeforces people",
   "activationCommands": {
-    "atom-workspace": ["codeforces:open"]
+    "atom-workspace": ["codeforces-problem:open"]
   },
   "repository": "https://github.com/laituan245/atom-codeforces",
   "license": "MIT",
@@ -14,6 +14,7 @@
   "dependencies": {
     "atom-space-pen-views": "^2.0.3",
     "sub-atom": "1.0.x",
-    "request": "*"
+    "request": "*",
+    "cheerio": "*"
   }
 }

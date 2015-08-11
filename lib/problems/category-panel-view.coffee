@@ -1,5 +1,6 @@
 {$$, View} = require 'atom-space-pen-views'
-
+request = require 'request'
+cheerio = require 'cheerio'
 module.exports =
 class CategoryPanelView extends View
 
@@ -45,6 +46,13 @@ class CategoryPanelView extends View
     @updatePanelBottom()
     @updateListGroup()
 
+  onProblemTitleClicked: (contestId, index) ->
+    ->
+      onThisProblemDataReceived = (error, response, body) =>
+        $ = cheerio.load(body)
+        console.log($("div.problem-statement").html())
+      request 'http://codeforces.com/problemset/problem/' + contestId + '/' + index, onThisProblemDataReceived
+
   addProblems: (problems) ->
 
     @myProblems = problems
@@ -70,4 +78,6 @@ class CategoryPanelView extends View
   addProblem: (problem) ->
     @list.append $$ ->
       @li class: 'list-item', =>
-          @span class: 'inline-block ', problem.contestId + problem.index + ". " + " " + problem.name
+        @span class: 'inline-block ', id: 'problem' + problem.contestId + problem.index ,problem.contestId + problem.index + ". " + " " + problem.name
+
+    document.getElementById('problem' + problem.contestId + problem.index).onclick = @onProblemTitleClicked(problem.contestId, problem.index)

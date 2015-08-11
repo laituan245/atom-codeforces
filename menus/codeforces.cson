@@ -3,8 +3,8 @@
   'submenu': [
     'label': 'Codeforces'
     'submenu': [
-      'label': 'Show'
-      'command': 'codeforces:open'
+      'label': 'Problem'
+      'command': 'codeforces-problem:open'
     ]
   ]
 ]
