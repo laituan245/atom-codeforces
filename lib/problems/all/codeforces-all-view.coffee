@@ -3,7 +3,7 @@ request = require 'request'
 CategoryPanelView = require './category-panel-view'
 
 module.exports =
-class codeforcesView extends View
+class codeforcesAllView extends View
 
   @content: ->
    @div class: 'codeforces', =>
