@@ -6,7 +6,7 @@ module.exports =
 class codeforcesAllView extends View
 
   @content: ->
-   @div class: 'codeforces', =>
+   @div class: 'codeforces-all', =>
      @div class:"contest_notice", =>
         @div outlet: 'contest_list', class:"disabled"
         @span outlet: 'contest_notice_span', "Loading ..."

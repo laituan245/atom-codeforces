@@ -1,11 +1,10 @@
 {$$, View} = require 'atom-space-pen-views'
-request = require 'request'
-cheerio = require 'cheerio'
+codeforceSingle = require '../single/codeforces-single'
 module.exports =
 class CategoryPanelView extends View
 
   count: 0
-  problemsPerPanel: 6
+  problemsPerPanel: 7
   curPageNb: 1
   maxPageNb: 245
 
@@ -46,12 +45,9 @@ class CategoryPanelView extends View
     @updatePanelBottom()
     @updateListGroup()
 
-  onProblemTitleClicked: (contestId, index) ->
+  onProblemTitleClicked: (contestId, index, problemName) ->
     ->
-      onThisProblemDataReceived = (error, response, body) =>
-        $ = cheerio.load(body)
-        console.log($("div.problem-statement").html())
-      request 'http://codeforces.com/problemset/problem/' + contestId + '/' + index, onThisProblemDataReceived
+      atom.workspace.getActivePane().activateItem new codeforceSingle contestId, index, problemName
 
   addProblems: (problems) ->
 
@@ -76,8 +72,9 @@ class CategoryPanelView extends View
       @maxPageNb += 1
 
   addProblem: (problem) ->
+    myTitle = @heading.text()
     @list.append $$ ->
       @li class: 'list-item', =>
-        @span class: 'inline-block ', id: 'problem' + problem.contestId + problem.index ,problem.contestId + problem.index + ". " + " " + problem.name
+        @span class: 'inline-block', id: myTitle + '_problem' + problem.contestId + problem.index, problem.contestId + problem.index + ". " + " " + problem.name
 
-    document.getElementById('problem' + problem.contestId + problem.index).onclick = @onProblemTitleClicked(problem.contestId, problem.index)
+    document.getElementById(myTitle + '_problem' + problem.contestId + problem.index).onclick = @onProblemTitleClicked(problem.contestId, problem.index, problem.name)
