@@ -34,6 +34,8 @@ class codeforcesAllView extends View
     @showMathandGeometryProblems()
 
   getTimeString: (seconds) ->
+    if seconds < 0
+      return "Starting soon"
     days = parseInt(seconds / (24 * 3600))
     seconds = seconds % (24 * 3600);
     hours = parseInt (seconds / 3600)
@@ -50,14 +52,14 @@ class codeforcesAllView extends View
       rsStr = rsStr + hours + " hours   "
     if hours == 1
       rsStr = rsStr + hours + " hour   "
-    if minutes > 1
-      rsStr = rsStr + minutes + " minutes"
-    if minutes == 1
-      rsStr = rsStr + minutes + " minute"
+    if days == 0
+      if minutes > 1
+        rsStr = rsStr + minutes + " minutes"
+      if minutes == 1
+        rsStr = rsStr + minutes + " minute"
     return rsStr
 
   updateContestNotice: =>
-    console.log ("updateContestNotice")
     currentlyOpened = false
     for panelItem in atom.workspace.getPaneItems()
       if panelItem.title in ["Codeforces"]

@@ -37,16 +37,17 @@ module.exports =
           $('.input-file').remove()
           $('.output-file').remove()
           tempHTML =  $('div.problem-statement').html()
-          while (tempHTML != tempHTML.replace("&#x2009;", " "))
-            tempHTML = tempHTML.replace("&#x2009;", " ")
-          @problem_detail.html tempHTML
-          @general_info.html GeneralInfoHTML
-
-          tempElement = document.getElementById("submit_btn/" + contestId + "/" + index)
-          if tempElement
-            tempElement.className = "btn-info"
-            tempElement.onclick = @onSubmitButtonClicked
-
+          if tempHTML
+            while (tempHTML != tempHTML.replace("&#x2009;", " "))
+              tempHTML = tempHTML.replace("&#x2009;", " ")
+            @problem_detail.html tempHTML
+            @general_info.html GeneralInfoHTML
+            tempElement = document.getElementById("submit_btn/" + contestId + "/" + index)
+            if tempElement
+              tempElement.className = "btn-info"
+              tempElement.onclick = @onSubmitButtonClicked
+          else
+            @problem_detail.html "<i>Something is wrong. Please try again later.</i>"
         request 'http://codeforces.com/problemset/problem/' + contestId + '/' + index, onThisProblemDataReceived
 
       onSubmitButtonClicked: ->
