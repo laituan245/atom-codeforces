@@ -47,7 +47,14 @@ class CategoryPanelView extends View
 
   onProblemTitleClicked: (contestId, index, problemName) ->
     ->
-      atom.workspace.getActivePane().activateItem new codeforceSingle contestId, index, problemName
+      currentlyOpened = false
+      for panelItem in atom.workspace.getPaneItems()
+        if panelItem.contestId == contestId and panelItem.index == index and panelItem.problemName == problemName  
+          currentlyOpened = true
+          atom.workspace.getActivePane().activateItem panelItem
+          break
+      if not currentlyOpened
+        atom.workspace.getActivePane().activateItem new codeforceSingle contestId, index, problemName
 
   addProblems: (problems) ->
 
