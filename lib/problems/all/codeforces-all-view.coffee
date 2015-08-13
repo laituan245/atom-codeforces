@@ -36,17 +36,23 @@ class codeforcesAllView extends View
     days = parseInt(seconds / (24 * 3600))
     seconds = seconds % (24 * 3600);
     hours = parseInt (seconds / 3600)
-    if days < 1 and hours < 1
-      return "Soon"
+    seconds = seconds % 3600
+    minutes = parseInt (seconds / 60)
+    if days < 1 and hours < 1 and minutes < 1
+      return "Starting soon"
     rsStr = ""
     if days > 1
-      rsStr = rsStr + days + " days "
+      rsStr = rsStr + days + " days   "
     if days == 1
-      rsStr = rsStr + days + " day "
+      rsStr = rsStr + days + " day   "
     if hours > 1
-      rsStr = rsStr + hours + " hours"
+      rsStr = rsStr + hours + " hours   "
     if hours == 1
-      rsStr = rsStr + hours + " hour"
+      rsStr = rsStr + hours + " hour   "
+    if minutes > 1
+      rsStr = rsStr + minutes + " minutes"
+    if minutes == 1
+      rsStr = rsStr + minutes + " minute"
     return rsStr
 
   updateContestNotice: ->
