@@ -49,7 +49,7 @@ class CategoryPanelView extends View
     ->
       currentlyOpened = false
       for panelItem in atom.workspace.getPaneItems()
-        if panelItem.contestId == contestId and panelItem.index == index and panelItem.problemName == problemName  
+        if panelItem.contestId == contestId and panelItem.index == index and panelItem.problemName == problemName
           currentlyOpened = true
           atom.workspace.getActivePane().activateItem panelItem
           break
@@ -84,4 +84,6 @@ class CategoryPanelView extends View
       @li class: 'list-item', =>
         @span class: 'inline-block', id: myTitle + '_problem' + problem.contestId + problem.index, problem.contestId + problem.index + ". " + " " + problem.name
 
-    document.getElementById(myTitle + '_problem' + problem.contestId + problem.index).onclick = @onProblemTitleClicked(problem.contestId, problem.index, problem.name)
+    mTempElement = document.getElementById(myTitle + '_problem' + problem.contestId + problem.index)
+    if mTempElement
+      mTempElement.onclick = @onProblemTitleClicked(problem.contestId, problem.index, problem.name)

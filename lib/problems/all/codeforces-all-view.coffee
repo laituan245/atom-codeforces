@@ -25,6 +25,7 @@ class codeforcesAllView extends View
 
   populateViews: ->
     @updateContestNotice()
+    @refreshIntervalId = setInterval(@updateContestNotice, 40000)
     @showImplementationProblems()
     @showBruteForceProblems()
     @showGreedyProblems()
@@ -55,9 +56,19 @@ class codeforcesAllView extends View
       rsStr = rsStr + minutes + " minute"
     return rsStr
 
-  updateContestNotice: ->
+  updateContestNotice: =>
+    console.log ("updateContestNotice")
+    currentlyOpened = false
+    for panelItem in atom.workspace.getPaneItems()
+      if panelItem.title in ["Codeforces"]
+        currentlyOpened = true
+        break
+    if not currentlyOpened
+      clearInterval(@refreshIntervalId)
+
     onContestDataReceived = (error, response, body) =>
       if (!error && response.statusCode == 200)
+        @contest_list.empty()
         contests = JSON.parse(body).result
         upcomingContests = []
         hasUpcomingContest = false
@@ -67,6 +78,8 @@ class codeforcesAllView extends View
             hasUpcomingContest = true
 
         if not hasUpcomingContest
+          @contest_list.addClass "disabled"
+          @contest_notice_span.removeClass "hidden"
           @contest_notice_span.text ("There is currently no upcoming contest")
         else
           @contest_notice_span.addClass "hidden"
@@ -74,6 +87,7 @@ class codeforcesAllView extends View
 
           for contest in upcomingContests
             remainingTime = -contest.relativeTimeSeconds
+            remainingTime = remainingTime - 300  # The registration closes 5 minutes before the actual contest
             timeStr = @getTimeString remainingTime
             @contest_list.append $$ ->
               @li style:"width: 410px; text-align: left; margin: 0 auto; padding-bottom: 4px;", =>
