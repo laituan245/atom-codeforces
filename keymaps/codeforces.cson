@@ -1,2 +1,3 @@
 'atom-workspace atom-text-editor':
   'ctrl-alt-shift-p': 'codeforces-problem:open'
+  'ctrl-alt-shift-s': 'codeforces-statistics:open'
