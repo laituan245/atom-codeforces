@@ -11,16 +11,46 @@ module.exports =
           @div class: 'editor-container', =>
             @subview 'searchEditorView', new TextEditorView(mini: true)
           @div class: 'btn-group', =>
-            @button outlet: 'searchUserButton', class: 'btn btn-default selected', 'Users'
-            @button outlet: 'searchContestButton', class: 'btn btn-default', 'Contests'
-        @div class: 'rating_table', outlet: 'rating_table', =>
-          @h2 outlet: 'top100Heading', class: 'section-heading icon icon-star','Top 100 users'
-          @span class: 'loading-text-span', outlet: 'loading_text', "Loading ..."
-          @ul class: 'list-group', outlet: 'list'
+            @button id:'searchButton', outlet: 'searchButton', class: 'btn btn-success', 'Search'
+          @form style:'font-size:17px;', =>
+            @div class:'inline-block', style:'margin-right:10px; padding:10px;',=>
+              @input type:'radio', outlet: 'userRadioButton', checked:'checked'
+              @span ' Users'
+            @div class:'inline-block', style:'padding:10px;', =>
+              @input type:'radio', outlet: 'contestRadioButton'
+              @span ' Contests'
+        @div class: 'main', =>
+          @div class: 'rating_table', outlet: 'rating_table', =>
+            @h2 outlet: 'top100Heading', class: 'section-heading icon icon-star','Top 100 users'
+            @span class: 'loading-text-span', outlet: 'loading_text', "Loading ..."
+            @ul class: 'list-group', outlet: 'list'
+
+    @searchType = 'user'
 
     initialize: ({@uri}) ->
       @searchEditorView.getModel().setPlaceholderText('Enter a user handle')
       @showRatingTable()
+
+      @userRadioButton.on 'click', =>
+        @setSearchType('user')
+      @contestRadioButton.on 'click',=>
+        @setSearchType('contest')
+
+    performSearch: ->
+
+    setSearchType: (searchType) ->
+      if searchType is 'user'
+        @searchType = 'users'
+        @userRadioButton.prop('checked', true)
+        @contestRadioButton.prop('checked', false)
+        @searchEditorView.getModel().setPlaceholderText('Enter a user handle')
+        @rating_table.removeClass('hidden')
+      else if searchType is 'contest'
+        @searchType = 'contests'
+        @userRadioButton.prop('checked', false)
+        @contestRadioButton.prop('checked', true)
+        @searchEditorView.getModel().setPlaceholderText('Enter a contest id')
+        @rating_table.addClass('hidden')
 
     showRatingTable: ->
       onRatingTableReceived = (error, response, body) =>
