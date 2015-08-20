@@ -2,7 +2,7 @@ userStatisticsView = require './user-statistics-view'
 
 module.exports =
 class userStatistics
-  constructor: (@title) ->
+  constructor: (@userHandle) ->
 
-  getTitle:     -> @title
-  getViewClass: -> userStatisticsView
+  getTitle:     -> "User " + @userHandle
+  getViewClass: -> userStatisticsView @userHandle

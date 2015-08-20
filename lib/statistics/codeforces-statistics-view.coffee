@@ -57,12 +57,13 @@ module.exports =
       =>
         currentlyOpened = false
         for panelItem in atom.workspace.getPaneItems()
-          if panelItem.title in ["User " + userHandle]
+          console.log (panelItem)
+          if panelItem.getTitle() in ["User " + userHandle]
             currentlyOpened = true
             atom.workspace.getActivePane().activateItem panelItem
             break
         if not currentlyOpened
-          atom.workspace.getActivePane().activateItem new userStatistics ("User " + userHandle)
+          atom.workspace.getActivePane().activateItem new userStatistics userHandle
 
     showRatingTable: ->
       onRatingTableReceived = (error, response, body) =>
@@ -93,8 +94,13 @@ module.exports =
                   @span $($('td',row)[2]).text()
                 @div class: 'inline-block', style: "width:12%;", =>
                   @span $($('td',row)[3]).text()
-            document.getElementById('user_nb_' + userCount).innerHTML = $($('td',row)[1]).html()
-            document.getElementById('a_user_nb_' + userCount).onclick = @onClickUserHandle(curUserHandle)
+
+            if document.getElementById('user_nb_' + userCount)
+              document.getElementById('user_nb_' + userCount).innerHTML = $($('td',row)[1]).html()
+
+            if document.getElementById('a_user_nb_' + userCount)
+              document.getElementById('a_user_nb_' + userCount).onclick = @onClickUserHandle(curUserHandle)
+
             if userCount == 100
               break
 
