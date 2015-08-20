@@ -1,4 +1,5 @@
 {$$, View, TextEditorView} = require 'atom-space-pen-views'
+userStatistics = require './user/user-statistics.coffee'
 cheerio = require 'cheerio'
 request = require 'request'
 
@@ -52,6 +53,17 @@ module.exports =
         @searchEditorView.getModel().setPlaceholderText('Enter a contest id')
         @rating_table.addClass('hidden')
 
+    onClickUserHandle: (userHandle) =>
+      =>
+        currentlyOpened = false
+        for panelItem in atom.workspace.getPaneItems()
+          if panelItem.title in ["User " + userHandle]
+            currentlyOpened = true
+            atom.workspace.getActivePane().activateItem panelItem
+            break
+        if not currentlyOpened
+          atom.workspace.getActivePane().activateItem new userStatistics ("User " + userHandle)
+
     showRatingTable: ->
       onRatingTableReceived = (error, response, body) =>
         $ = cheerio.load(body)
@@ -68,7 +80,10 @@ module.exports =
 
         for row in $('tr','div.datatable.ratingsDatatable')
           if $($('td',row)[1]).html()
+            $($('a',row)).attr("href", "#")
             userCount += 1
+            curUserHandle = $($('td',row)[1]).text().trim()
+            $('a', $('td',row)[1]).attr("id", "a_user_nb_" + userCount)
             @list.append $$ ->
               @li class: 'list-item', =>
                 @div class: 'inline-block', style: "width:12%;", =>
@@ -79,6 +94,7 @@ module.exports =
                 @div class: 'inline-block', style: "width:12%;", =>
                   @span $($('td',row)[3]).text()
             document.getElementById('user_nb_' + userCount).innerHTML = $($('td',row)[1]).html()
+            document.getElementById('a_user_nb_' + userCount).onclick = @onClickUserHandle(curUserHandle)
             if userCount == 100
               break
 

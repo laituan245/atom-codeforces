@@ -87,14 +87,19 @@ class codeforcesAllView extends View
           @contest_notice_span.addClass "hidden"
           @contest_list.removeClass "disabled"
 
+          maxStrLength = 0
           for contest in upcomingContests
             remainingTime = -contest.relativeTimeSeconds
             remainingTime = remainingTime - 300  # The registration closes 5 minutes before the actual contest
             timeStr = @getTimeString remainingTime
+            if contest.name.length > maxStrLength
+              maxStrLength = contest.name.length
             @contest_list.append $$ ->
               @li style:"width: 410px; text-align: left; margin: 0 auto; padding-bottom: 4px;", =>
                   @span style:"margin-right: 10px;", contest.name
                   @span class: "small highlight-success", timeStr
+          if maxStrLength > 50
+            @contest_list.children().css("width", "550px")
 
       else
         request response.request.href, onContestDataReceived
