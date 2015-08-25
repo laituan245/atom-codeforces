@@ -10,7 +10,9 @@
 ## Features
 + Load problems from Codeforces (Problems are ordered by categories)
 + Display a notification when there are upcoming contests
-+ Compute interesting statistics about Codeforces (users, contests, problems, ...)
++ ** Compute interesting statistics about Codeforces (users, contests, problems, ...)
+
+** This feature has not been completely implemented.
 
 ## How to use
 First, you need to download this package from [here](https://atom.io/packages)
